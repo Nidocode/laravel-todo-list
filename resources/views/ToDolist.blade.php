@@ -24,6 +24,9 @@
 
 
     <ul>
+    @if($tasks->isEmpty())
+        <p>No tasks yet.</p>
+    @else
         @foreach ($tasks as $task)
         <li class="{{ $task->completed ? 'completed' : '' }}">
             <span class ="task-text" id="task-text-{{ $task->id }}">{{ $task->task }}</span>
@@ -74,6 +77,7 @@
             </div>
         </li>
         @endforeach
+    @endif
     </ul>
 
 </div>
@@ -95,39 +99,10 @@
     
 
 </body>
+
+
 </html>
 
 
 
-<!--
 
-the form will send a POST request to /addTask, which goes to the addTask() method in TaskController
-
-<input type="text" name="task"> 
-This is where the user types their new task (like "Buy milk").
-
-When submitted, the form sends this as $_POST['task'] (or $request->task in Laravel).
-
--->
-
-<!--
-
-What you can put inside {/{ }/} :
-
--Variables:
-{{ $task->task }}
-
--Functions:
-{{ strtoupper($task->task) }}
-
--Route helpers:
-{{ route('add.attempt') }}
-
--Condition results:
-{{ $task->completed ? 'Done' : 'Pending' }}
-
-f the task is completed, Laravel prints "Done" in the browser.
-
-If not, it printss "Pending".
-
--->

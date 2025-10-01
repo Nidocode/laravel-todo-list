@@ -81,11 +81,30 @@ class TaskController extends Controller
         return redirect('/');
     } 
 
-public function showTasks()
-{
-    $tasks = Task::all(); # save all the tasks
-    return view('ToDolist', compact('tasks')); # compact('tasks') makes a variable called $tasks available in the view
-}
+    // public function showTasks(){
+    // $tasks = Task::all(); # save all the tasks
+    // return view('ToDolist', compact('tasks')); # compact('tasks') makes a variable called $tasks available in the view
+    // }
+
+    public function showTasks() {
+    
+    try {
+        $tasks = Task::all();
+
+        if ($tasks->isEmpty()) {
+            throw new \Exception('No tasks found.');
+        }else{
+            return view('ToDolist', compact('tasks'));
+        }
+
+    } catch (\Exception $e) {
+        return view('ToDolist', ['tasks' => collect()])
+        ->with('error', $e->getMessage());
+    }
+
+    
+    }
+
 
 
 

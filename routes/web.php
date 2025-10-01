@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TaskController;
+
 
 # web.php is the file where you define routes for your web application
 
@@ -10,17 +10,14 @@ use App\Http\Controllers\TaskController;
 // }); -> u don't need it since showTasks() does return the ToDolist view with $tasks along
 
 
+use App\Http\Controllers\TaskController;
 
-Route::post('addTask', [Taskcontroller::class, 'addTask'])->name('add.attempt'); # When the login form is submitted (with method="POST"), it calls the addTask() method in TaskController.
+Route::post('addTask', [TaskController::class, 'addTask'])->name('add.attempt');
+Route::post('deleteTask', [TaskController::class, 'deleteTask'])->name('delete.attempt');
+Route::post('completeTask', [TaskController::class, 'completeTask'])->name('complete.attempt');
+Route::put('editTask', [TaskController::class, 'editTask'])->name('edit.attempt');
 
-Route::post('deleteTask', [Taskcontroller::class, 'deleteTask'])->name('delete.attempt');
-
-Route::post('completeTask', [Taskcontroller::class, 'completeTask'])->name('complete.attempt');
-
-Route::put('editTask', [Taskcontroller::class, 'editTask'])->name('edit.attempt');
-
-Route::get('/', [TaskController::class, 'showTasks']); # '/' so it's called with the root URL along with ToDolist view
-
+Route::get('/', [TaskController::class, 'showTasks']);
 
 
 
